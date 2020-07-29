@@ -10,87 +10,259 @@
 
 </head>
 <body>
-	<div class="layui-row">
+	<div class="layui-container">
+		<div class="layui-row">
 			<div class="layui-col-md12">
-			
-			    <form class="layui-form" action="" lay-filter="hbaseform">
-	       <div class="layui-form-item">
-	        <label class="layui-form-label">zkip</label>
-	          <div class="layui-input-block">
-	           <input name="zkip" type="text" value="172.16.158.54" required   placeholder="zkip" autocomplete="off" class="layui-input">
-	          </div>
-	        </div>
-			  <div class="layui-form-item">
-	        <label class="layui-form-label">zkport</label>
-	          <div class="layui-input-block">
-	           <input name="zkport" type="text" value="2185" required   placeholder="zkport" autocomplete="off" class="layui-input">
-	          </div>
-	        </div>
-			  <div class="layui-form-item">
-	        <label class="layui-form-label">TabelName</label>
-	          <div class="layui-input-block">
-	           <input name="TabelName" type="text" value="" required   placeholder="TabelName" autocomplete="off" class="layui-input">
-	          </div>
-	        </div>
-			  <div class="layui-form-item">
-	        <label class="layui-form-label">Rowkey</label>
-	          <div class="layui-input-block">
-	           <input name="Rowkey" type="text" value=""    placeholder="Rowkey" autocomplete="off" class="layui-input">
-	          </div>
-	        </div>
-			
-	       <div class="layui-form-item">
-	         <label class="layui-form-label">返回数据</label>
-	          <div class="layui-input-block">
-	          <textarea name="returndata"    placeholder="请输入" class="layui-textarea" style="height:200px" ></textarea>
-	         </div>
-	        </div><br>
-	       <div class="layui-form-item">
-	         <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius" lay-submit="" lay-filter="search">查询</button>
-	        </div>
-	    </form> 
-			
-			</div>	
+				<h2>HadoopClient</h2>
+				<br>
+				<br>
+			</div>
 		</div>
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<div class="layui-collapse">
+					<div class="layui-colla-item">
+						<h2 class="layui-colla-title">hbase查询</h2>
+						<div class="layui-colla-content">
+							<form class="layui-form" action="" lay-filter="hbasesearch">
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkip</label>
+									<div class="layui-input-block">
+										<input name="zkip" type="text" value="172.16.158.54" required
+											placeholder="zkip" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkport</label>
+									<div class="layui-input-block">
+										<input name="zkport" type="text" value="2185" required
+											placeholder="zkport" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">TabelName</label>
+									<div class="layui-input-block">
+										<input name="TabelName" type="text" value="" required
+											placeholder="TabelName" autocomplete="off"
+											class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">Rowkey</label>
+									<div class="layui-input-block">
+										<input name="Rowkey" type="text" value="" placeholder="Rowkey"
+											autocomplete="off" class="layui-input">
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<label class="layui-form-label">返回数据</label>
+									<div class="layui-input-block">
+										<textarea name="returndata" placeholder="请输入"
+											class="layui-textarea" style="height: 200px"></textarea>
+									</div>
+								</div>
+								<br>
+								<div class="layui-form-item">
+									<button
+										class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius"
+										lay-submit="" lay-filter="search">查询</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="layui-colla-item">
+						<h2 class="layui-colla-title">hbase数据新增修改</h2>
+						<div class="layui-colla-content">
+
+							<form class="layui-form" action="" lay-filter="hbaseadd">
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkip</label>
+									<div class="layui-input-block">
+										<input name="zkip" type="text" value="172.16.158.54" required
+											placeholder="zkip" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkport</label>
+									<div class="layui-input-block">
+										<input name="zkport" type="text" value="2185" required
+											placeholder="zkport" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">TabelName</label>
+									<div class="layui-input-block">
+										<input name="TabelName" type="text" value="" required
+											placeholder="TabelName" autocomplete="off"
+											class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">Rowkey</label>
+									<div class="layui-input-block">
+										<input name="Rowkey" type="text" value="" placeholder="Rowkey"
+											required autocomplete="off" class="layui-input">
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<label class="layui-form-label">插入数据</label>
+									<div class="layui-input-block">
+										<textarea name="Insertdata" placeholder="请输入"
+											class="layui-textarea" style="height: 200px"></textarea>
+									</div>
+								</div>
+								<br>
+								<div class="layui-form-item">
+									<button
+										class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius"
+										lay-submit="" lay-filter="add">新增</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+					<div class="layui-colla-item">
+						<h2 class="layui-colla-title">hbase表迁移</h2>
+						<div class="layui-colla-content">
+							<form class="layui-form" action="" lay-filter="hbasetransfer">
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkip</label>
+									<div class="layui-input-block">
+										<input name="zkip" type="text" value="172.16.158.54" required
+											placeholder="zkip" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">zkport</label>
+									<div class="layui-input-block">
+										<input name="zkport" type="text" value="2185" required
+											placeholder="zkport" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">OrginTable</label>
+									<div class="layui-input-block">
+										<input name="OrginTable" type="text" value="" required
+											placeholder="OrginTabel" autocomplete="off"
+											class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">DestTable</label>
+									<div class="layui-input-block">
+										<input name="DestTable" type="text" value=""
+											placeholder="DestTabel" autocomplete="off"
+											class="layui-input">
+									</div>
+								</div>
+								<br>
+								<div class="layui-form-item">
+									<button
+										class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius"
+										lay-submit="" lay-filter="transfer">迁移</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 <script>
-	layui.use([ 'layer', 'form' ,'jquery','code','layedit','element','util','carousel'], function() {
+	layui.use([ 'layer', 'form', 'jquery', 'code', 'layedit', 'element',
+			'util', 'carousel' ], function() {
 		//<!-- layui初始化-->
 		var layer = layui.layer, form = layui.form;
-		var element = layui.element; 
+		var element = layui.element;
 		var util = layui.util;
 		var carousel = layui.carousel;
 		//<!-- 获取布局中的form表单-->
 		var form = layui.form;
 		//<!-- 引入jquery-->
-		var $=layui.$;
-		
-		function search(){
-			  form.on('submit(search)', function(data){
-				  var index = layer.load(1);
-				  $.ajax({          
-			           	url:'/hbasesearch',
-			             type:'post', 
-			             async: false,
-			             data:{
-			            	 zkip:data.field.zkip,
-			            	 zkport:data.field.zkport,
-			            	 TabelName:data.field.TabelName,
-			            	 Rowkey: data.field.Rowkey
-			             },
-			             success:function(data){
-			            		form.val("hbaseform", { 
-			  					"returndata":data
-			  				});
-			             }
-			           
-				   });
-				  layer.close(index); 
-				    return false;
-			  });
+		var $ = layui.$;
+
+		function search() {
+			form.on('submit(search)', function(data) {
+
+				$.ajax({
+					url : '/SearchHbase',
+					type : 'post',
+					async : false,
+					data : {
+						zkip : data.field.zkip,
+						zkport : data.field.zkport,
+						TableName : data.field.TabelName,
+						Rowkey : data.field.Rowkey
+					},
+					success : function(data) {
+						form.val("hbasesearch", {
+							"returndata" : data
+						});
+					}
+
+				});
+
+				return false;
+			});
 		}
 		search();
+
+		function add() {
+			form.on('submit(add)', function(data) {
+
+				$.ajax({
+					url : '/AddHbase',
+					type : 'post',
+					async : false,
+					data : {
+						zkip : data.field.zkip,
+						zkport : data.field.zkport,
+						TableName : data.field.TabelName,
+						Rowkey : data.field.Rowkey,
+						Insertdata : data.field.Insertdata
+					},
+					success : function(data) {
+						layer.msg(data.info);
+					}
+
+				});
+
+				return false;
+			});
+		}
+		add();
+
+		function transfer() {
+			form.on('submit(transfer)', function(data) {
+
+				$.ajax({
+					url : '/Tabletransfer',
+					type : 'post',
+					async : false,
+					data : {
+						zkip : data.field.zkip,
+						zkport : data.field.zkport,
+						OrginTable : data.field.OrginTable,
+						DestTable : data.field.DestTable
+					},
+					success : function(data) {
+						layer.msg(data);
+					}
+
+				});
+
+				return false;
+			});
+		}
+		transfer();
 	});
 </script>
 
