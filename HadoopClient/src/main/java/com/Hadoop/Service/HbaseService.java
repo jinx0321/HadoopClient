@@ -30,6 +30,9 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
+import org.apache.hadoop.hbase.filter.RowFilter;
+import org.apache.hadoop.hbase.filter.SubstringComparator;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.KeyValue;  
 import com.Hadoop.Log.*;
@@ -59,35 +62,7 @@ public class HbaseService {
 		}
 		
 	}
-	
-	public String InsertTable(String tablename,String rowkey,String zkip,String zkport,JSONArray jr) {
-		Connection conn = null;
-		try {
-		    conn=initHbase(zkip,zkport);
-			Table table=initHbase(zkip,zkport).getTable(TableName.valueOf(tablename));
-			Put put=new Put(rowkey.getBytes());
-			long timestamp=new Date().getTime();
-		    for(int i=0;i<jr.size();i++) {
-		    	JSONObject json=jr.getJSONObject(i);
-		    	Set<String> sets=json.keySet();
-		    	sets.forEach(s->{
-		    	 	put.addColumn(Bytes.toBytes(json.getString("Family")==null?"default":json.getString("Family")),Bytes.toBytes(s),timestamp, Bytes.toBytes(json.getString(s)));
-		    	});
-		    }
-		    table.put(put);
-		    return Info.toJson("新增成功", "success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Info.toJson( e.getMessage(), "fail");
-		} finally {
-			try {
-				conn.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
-	}
 	
 
 	private String SearchAllTable(String tablename,String zkip,String zkport) throws IOException { 
@@ -126,10 +101,13 @@ public class HbaseService {
 		try {
 	
 		conn=initHbase(zkip,zkport);
-		Table table=conn.getTable(TableName.valueOf(tablename)); 
-		 Get g = new Get(Bytes.toBytes(rowkey));
-		 Result r=table.get(g); 
+		Table table=conn.getTable(TableName.valueOf(tablename));
+		RowFilter rowFilter = new RowFilter(CompareOp.EQUAL, new SubstringComparator(rowkey));
+		Scan scan = new Scan();
+		scan.setFilter(rowFilter);
+		ResultScanner scanner = table.getScanner(scan);
 		 Map<String,Map<String,String>> result=new LinkedMap();
+		 scanner.forEach(r->{
 	     r.listCells().forEach(cell -> {
 	    	 if(result.containsKey(Bytes.toString(CellUtil.cloneRow(cell)))){
 	    		 result.get(Bytes.toString(CellUtil.cloneRow(cell))).put(Bytes.toString(CellUtil.cloneQualifier(cell)), Bytes.toString(CellUtil.cloneValue(cell)));
@@ -139,6 +117,7 @@ public class HbaseService {
 	    		 result.put(Bytes.toString(CellUtil.cloneRow(cell)), map);
 	    	 }
                });
+		 });
 			return JSON.toJSONString(result);
 			}catch(Exception e) {
 				return e.getMessage();
@@ -146,6 +125,36 @@ public class HbaseService {
 				conn.close();
 				
 			}
+	}
+	
+	
+	public String InsertTable(String tablename,String rowkey,String zkip,String zkport,JSONArray jr) {
+		Connection conn = null;
+		try {
+		    conn=initHbase(zkip,zkport);
+			Table table=initHbase(zkip,zkport).getTable(TableName.valueOf(tablename));
+			Put put=new Put(rowkey.getBytes());
+			long timestamp=new Date().getTime();
+		    for(int i=0;i<jr.size();i++) {
+		    	JSONObject json=jr.getJSONObject(i);
+		    	Set<String> sets=json.keySet();
+		    	sets.forEach(s->{
+		    	 	put.addColumn(Bytes.toBytes(json.getString("Family")==null?"default":json.getString("Family")),Bytes.toBytes(s),timestamp, Bytes.toBytes(json.getString(s)));
+		    	});
+		    }
+		    table.put(put);
+		    return Info.toJson("新增成功", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Info.toJson( e.getMessage(), "fail");
+		} finally {
+			try {
+				conn.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 	
 	/**
